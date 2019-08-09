@@ -1,5 +1,18 @@
 import * as PIXI from 'pixi.js'
 
+const {
+  loader,
+  Sprite,
+  utils,
+  Rectangle
+} = PIXI
+const {
+  resources
+} = loader
+const {
+  TextureCache
+} = utils
+
 const app = new PIXI.Application({
   width: 256,
   height: 256,
@@ -18,16 +31,30 @@ function setFullScreen() {
 setFullScreen()
 
 PIXI.loader
-  .add('cat.png')
+  .add('spritesheet.json')
   .load(setup)
 
 // This `setup` function will run when the image has loaded
 function setup() {
-  // Create the cat sprite
-  const catSprite = PIXI.Sprite.fromImage('cat.png')
-  
-  // Add the cat to the stage
-  app.stage.addChild(catSprite)
+  const { stage } = app
+
+  const id = PIXI.loader.resources['spritesheet.json'].textures
+  const dungeon = new Sprite(id['dungeon.png'])
+  const blob = new Sprite(id['blog.png'])
+  const door = new Sprite(id['door.png'])
+  const treasure = new Sprite(id['treasure.png'])
+  const explorer = new Sprite(id['explorer.png'])
+
+  treasure.x = dungeon.width - treasure.width - 48
+  treasure.y = dungeon.height / 2 - treasure.height / 2
+  explorer.x = 48
+  explorer.y = dungeon.height / 2 - explorer.height / 2
+
+  stage.addChild( dungeon )
+  // stage.addChild( blob )
+  // stage.addChild( door )
+  stage.addChild( treasure )
+  stage.addChild( explorer )
 }
 
 /* eslint-disable no-undef */
