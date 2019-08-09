@@ -40,7 +40,25 @@ function renderBlobs(numberOfBlobs = 6, spacing = 48, xOffset = 150) {
   const { stage } = app
   const id = PIXI.loader.resources['spritesheet.json'].textures
 
-  
+  for (let i = 0; i < numberOfBlobs; i++) {
+    let blob = new Sprite(id["blob.png"]);
+
+    //Space each blob horizontally according to the `spacing` value.
+    //`xOffset` determines the point from the left of the screen
+    //at which the first blob should be added.
+    let x = spacing * i + xOffset;
+
+    //Give the blob a random y position
+    //(`randomInt` is a custom function - see below)
+    let y = randomInt(0, stage.height - blob.height);
+
+    //Set the blob's position
+    blob.x = x;
+    blob.y = y;
+
+    //Add the blob sprite to the stage
+    stage.addChild(blob);
+  }
 }
 
 // This `setup` function will run when the image has loaded
@@ -58,37 +76,11 @@ function setup() {
   explorer.y = dungeon.height / 2 - explorer.height / 2
   door.position.set(32, 0)
 
-  
-
   stage.addChild(dungeon)
   stage.addChild(door)
   stage.addChild(treasure)
   stage.addChild(explorer)
-
-  let numberOfBlobs = 6,
-      spacing = 48,
-      xOffset = 150;
-
-  //Make as many blobs as there are `numberOfBlobs`
-  for (let i = 0; i < numberOfBlobs; i++) {
-    let blob = new Sprite(id["blob.png"]);
-
-    //Space each blob horizontally according to the `spacing` value.
-    //`xOffset` determines the point from the left of the screen
-    //at which the first blob should be added.
-    let x = spacing * i + xOffset;
-
-    //Give the blob a random y position
-    //(`randomInt` is a custom function - see below)
-    let y = randomInt(0, app.stage.height - blob.height);
-
-    //Set the blob's position
-    blob.x = x;
-    blob.y = y;
-
-    //Add the blob sprite to the stage
-    app.stage.addChild(blob);
-  }
+  renderBlobs()
 }
 
 /* eslint-disable no-undef */
