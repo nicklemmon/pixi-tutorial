@@ -1,9 +1,10 @@
 import * as PIXI from 'pixi.js'
 
-let type = "WebGL"
+const app = new PIXI.Application({
+  width: 256,
+  height: 256
+})
 
-if(!PIXI.utils.isWebGLSupported()){
-  type = "canvas"
-}
-
-PIXI.utils.sayHello(type)
+/* eslint-disable no-undef */
+document.body.appendChild(app.view)
+/* eslint-enable no-undef */
