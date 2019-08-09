@@ -1,7 +1,7 @@
 # Directories
-node_modules/
-bin/
-.cache/
+node_modules
+bin
+.cache
 
 # Files
 .DS_Store
